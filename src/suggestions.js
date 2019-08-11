@@ -20,8 +20,12 @@ export function triggerCharacter(char, { allowSpaces = false }) {
       : new RegExp(`(?:^)?${char}[^\\s${char}]*`, 'g');
 
     // Lookup the boundaries of the current node
-    const textFrom = $position.before();
-    const textTo = $position.end();
+    try {
+      const textFrom = $position.before();
+      const textTo = $position.end();
+    } catch {
+      return null;
+    }
 
     const text = $position.doc.textBetween(textFrom, textTo, '\0', '\0');
 
